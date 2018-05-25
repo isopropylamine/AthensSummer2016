@@ -81,31 +81,33 @@ h3 {
   <tr>
     <td width="5%" align="center">1.</td>
     <td id="Scramble1"></td>
-    <td width="30%">image</td>
+    <td id="image1" width="30%">
+    <div id="scramble_image1"></div>
+    </td>
   </tr>
   
   <tr>
     <td align="center">2.</td>
     <td id="Scramble2"></td>
-    <td>image</td>
+    <td><div id="scramble_image2"></div></td>
   </tr>
   
   <tr>
     <td align="center">3.</td>
     <td id="Scramble3"></td>
-    <td>image</td>
+    <td><div id="scramble_image3"></div></td>
   </tr>
   
   <tr>
     <td align="center">4.</td>
     <td id="Scramble4"></td>
-    <td>image</td>
+    <td><div id="scramble_image4"></div></td>
   </tr>
   
   <tr>
     <td align="center">5.</td>
     <td id="Scramble5"></td>
-    <td>image</td>
+    <td><div id="scramble_image5"></div></td>
   </tr>
   
   
@@ -121,13 +123,13 @@ h3 {
   <tr>
     <td align="center">E1.</td>
     <td id="ScrambleE1"></td>
-    <td>image</td>
+    <td><div id="scramble_imageE1"></div></td>
   </tr>
   
   <tr>
     <td align="center">E2.</td>
     <td id="ScrambleE2"></td>
-    <td>image</td>
+    <td><div id="scramble_imageE2"></div></td>
   </tr>
 
 </table>
@@ -140,7 +142,7 @@ h3 {
 
 
 
-
+<script src="../tnoodle.js"></script>
 <script>
   var newArr;
   var sheetCount;
@@ -180,16 +182,58 @@ h3 {
       
       var sheet = newArr.sheets[0];
       sheetCount = newArr.sheets.length;
+      var puzzle = sheet.scrambler;
+      
+      var scram1 = sheet.scrambles[0];
+      var scram2 = sheet.scrambles[1];
+      var scram3 = sheet.scrambles[2];
+      var scram4 = sheet.scrambles[3];
+      var scram5 = sheet.scrambles[4];
+        
+      var scramE1 = sheet.extraScrambles[0];
+      var scramE2 = sheet.extraScrambles[1];
+        
+        
+        
+      document.getElementById("Scramble1").innerHTML = scram1;
+      document.getElementById("Scramble2").innerHTML = scram2;
+      document.getElementById("Scramble3").innerHTML = scram3;
+      document.getElementById("Scramble4").innerHTML = scram4; 
+      document.getElementById("Scramble5").innerHTML = scram5;
+      
+      document.getElementById("ScrambleE1").innerHTML = scramE1;
+      document.getElementById("ScrambleE2").innerHTML = scramE2;
+        
+      var maxWidth = 400;
+      var maxHeight = 300;
+      
+      var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_image1 = document.getElementById("scramble_image1");
+      scramble_image1.innerHTML = svgText1;  
+      var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
+      var scramble_image2 = document.getElementById("scramble_image2");
+      scramble_image2.innerHTML = svgText2;       
+      var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
+      var scramble_image3 = document.getElementById("scramble_image3");
+      scramble_image3.innerHTML = svgText3;
+      var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
+      var scramble_image4 = document.getElementById("scramble_image4");
+      scramble_image4.innerHTML = svgText4;
+      var svgText5 = tnoodlejs.scrambleToSvg(scram5, puzzle, maxWidth, maxHeight);
+      var scramble_image5 = document.getElementById("scramble_image5");
+      scramble_image5.innerHTML = svgText5;
+      
+        
+      var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE1 = document.getElementById("scramble_imageE1");
+      scramble_imageE1.innerHTML = svgTextE1;
+        
+      var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE2 = document.getElementById("scramble_imageE2");
+      scramble_imageE2.innerHTML = svgTextE2;
       
       
-      document.getElementById("Scramble1").innerHTML = sheet.scrambles[0];
-      document.getElementById("Scramble2").innerHTML = sheet.scrambles[1];
-      document.getElementById("Scramble3").innerHTML = sheet.scrambles[2];
-      document.getElementById("Scramble4").innerHTML = sheet.scrambles[3];
-      document.getElementById("Scramble5").innerHTML = sheet.scrambles[4];
       
-      document.getElementById("ScrambleE1").innerHTML = sheet.extraScrambles[0];
-      document.getElementById("ScrambleE2").innerHTML = sheet.extraScrambles[1];
       
       var dropdown = document.getElementById("chooseEvent");
       dropdown.options[0] = null;
@@ -213,23 +257,65 @@ h3 {
         var sheetToLoad = document.getElementById("chooseEvent").value;
         currentSheet = sheetToLoad;
         var sheet = newArr.sheets[currentSheet];
+        var puzzle = sheet.scrambler;
+        
+        var scram1 = sheet.scrambles[0];
+        var scram2 = sheet.scrambles[1];
+        var scram3 = sheet.scrambles[2];
+        var scram4 = sheet.scrambles[3];
+        var scram5 = sheet.scrambles[4];
+        
+        var scramE1 = sheet.extraScrambles[0];
+        var scramE2 = sheet.extraScrambles[1];
         
         
-      	document.getElementById("Scramble1").innerHTML = sheet.scrambles[0];
-        document.getElementById("Scramble2").innerHTML = sheet.scrambles[1];
-        document.getElementById("Scramble3").innerHTML = sheet.scrambles[2];
-        document.getElementById("Scramble4").innerHTML = sheet.scrambles[3];
-        document.getElementById("Scramble5").innerHTML = sheet.scrambles[4];
+        
+      	document.getElementById("Scramble1").innerHTML = scram1;
+        document.getElementById("Scramble2").innerHTML = scram2;
+        document.getElementById("Scramble3").innerHTML = scram3;
+        document.getElementById("Scramble4").innerHTML = scram4; 
+        document.getElementById("Scramble5").innerHTML = scram5;
       
-        document.getElementById("ScrambleE1").innerHTML = sheet.extraScrambles[0];
-        document.getElementById("ScrambleE2").innerHTML = sheet.extraScrambles[1];
+        document.getElementById("ScrambleE1").innerHTML = scramE1;
+        document.getElementById("ScrambleE2").innerHTML = scramE2;
+        
+        var maxWidth = 400;
+        var maxHeight = 300;
+        
+        
+        var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+        var scramble_image1 = document.getElementById("scramble_image1");
+        scramble_image1.innerHTML = svgText1;
+        var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
+        var scramble_image2 = document.getElementById("scramble_image2");
+        scramble_image2.innerHTML = svgText2;       
+        var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
+        var scramble_image3 = document.getElementById("scramble_image3");
+        scramble_image3.innerHTML = svgText3;      
+        var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
+        var scramble_image4 = document.getElementById("scramble_image4");
+        scramble_image4.innerHTML = svgText4;       
+        var svgText5 = tnoodlejs.scrambleToSvg(scram5, puzzle, maxWidth, maxHeight);
+        var scramble_image5 = document.getElementById("scramble_image5");
+        scramble_image5.innerHTML = svgText5;
+        
+        
+        var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
+        var scramble_imageE1 = document.getElementById("scramble_imageE1");
+        scramble_imageE1.innerHTML = svgTextE1;        
+        var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+        var scramble_imageE2 = document.getElementById("scramble_imageE2");
+        scramble_imageE2.innerHTML = svgTextE2;
+        
+
     
     }
       
     
     
   
-  
+    function getImage(puzzle){
+    	
   
   
   
