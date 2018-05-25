@@ -1,12 +1,14 @@
-<!DOCTYPE html>
 <html>
 <head>
 <title>Simple Viewer provided by TheCubicle.US</title>
 
-<style>
-
+<style type="text/css">
+    div#scramble_icons > * {
+        cursor: pointer;
+        margin: 10px;
+    }
 select {
-	border: 0px;
+    border: 0px;
     outline: 0px;
     font-size: 30px;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -44,6 +46,7 @@ h3 {
 #customers td, #customers th {
     border: 3px solid #000000;
     padding: 20px;
+    font-size: 30px;
     
 }
 
@@ -53,100 +56,64 @@ h3 {
 
 
 </style>
-</head>
-<body>
 
-</br>
-
-<input type='file' id='fileinput'>
-<input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
-
-
-
-</br>
-</br>
-</br>
-<h3> 
-<select name="Events/Groups" id="chooseEvent" onchange="loadSheet();">
-<option>Load competition .json file to start!</option>
-</select> 
-</h3>
-</br>
-</br>
-
-
-
-<table id="customers">
-  
-  <tr>
-    <td width="5%" align="center">1.</td>
-    <td id="Scramble1"></td>
-    <td id="image1" width="30%">
-    <div id="scramble_image1"></div>
-    </td>
-  </tr>
-  
-  <tr>
-    <td align="center">2.</td>
-    <td id="Scramble2"></td>
-    <td><div id="scramble_image2"></div></td>
-  </tr>
-  
-  <tr>
-    <td align="center">3.</td>
-    <td id="Scramble3"></td>
-    <td><div id="scramble_image3"></div></td>
-  </tr>
-  
-  <tr>
-    <td align="center">4.</td>
-    <td id="Scramble4"></td>
-    <td><div id="scramble_image4"></div></td>
-  </tr>
-  
-  <tr>
-    <td align="center">5.</td>
-    <td id="Scramble5"></td>
-    <td><div id="scramble_image5"></div></td>
-  </tr>
-  
-  
-  
-
-    
-  <tr>
-        <td align="left" colspan="3">Extra Scrambles:</td>
-  </tr>
-    
- 
-  
-  <tr>
-    <td align="center">E1.</td>
-    <td id="ScrambleE1"></td>
-    <td><div id="scramble_imageE1"></div></td>
-  </tr>
-  
-  <tr>
-    <td align="center">E2.</td>
-    <td id="ScrambleE2"></td>
-    <td><div id="scramble_imageE2"></div></td>
-  </tr>
-
-</table>
-
-
-
-<div class="footer">
-<img src="https://i.imgur.com/YHONVBb.png" alt="Chris Tran made dis" style="width:300px;height:75px;" align="right">
-</div>
-
-
+<!-- For Documentation, please read the readme.txt file in this same directory. -->
 <script>
     window.TNOODLE_ENV = { "TNOODLE_333_MIN_DISTANCE": "1" };
 </script>
 <script src="tnoodle.js"></script>
 <script>
-  var newArr;
+    function puzzlesLoaded(puzzles) {
+        window.puzzles = puzzles;
+
+        window.addEventListener("load", function() {
+            var versionSpan = document.getElementById("version");
+            versionSpan.appendChild(document.createTextNode(tnoodlejs.getVersion()));
+            tnoodlejs.setLogLevel("FINEST");
+
+            var scramble_info = document.getElementById("scramble_info");
+            var scramble_icons = document.getElementById("scramble_icons");
+            var selectedPuzzle = null;
+            function updateScrambleInfo() {
+                scramble_info.innerHTML = "";
+                var str = null;
+                if(selectedPuzzle) {
+                    str = "Click generate " + selectedPuzzle + " scramble";
+                } else {
+                    str = "Click icon to generate scramble";
+                }
+                scramble_info.appendChild(document.createTextNode(str));
+            }
+            updateScrambleInfo();
+            function onIconClick(e) {
+                var puzzle = puzzles[this.shortName];
+                newScramble(puzzle);
+            }
+            function onIconMouseover(e) {
+                var puzzle = puzzles[this.shortName];
+                selectedPuzzle = puzzle.getLongName();
+                updateScrambleInfo();
+            }
+            function onIconMouseout(e) {
+                selectedPuzzle = null;
+                updateScrambleInfo();
+            }
+            for(var shortName in puzzles) {
+                var puzzle = puzzles[shortName];
+                var longName = puzzle.getLongName();
+                var icon = tnoodlejs.getPuzzleIcon(puzzle);
+                icon.shortName = shortName;
+                scramble_icons.appendChild(icon);
+                icon.addEventListener('click', onIconClick);
+                icon.addEventListener('mouseover', onIconMouseover);
+                icon.addEventListener('mouseout', onIconMouseout);
+            }
+
+        });
+    }
+
+
+var newArr;
   var sheetCount;
   var currentSheet = 0;
   
@@ -247,11 +214,11 @@ h3 {
       dropdown.options[0] = null;
       
       for ( var i =0; i < sheetCount; ++i){
-      	var iSheet = newArr.sheets[i];
+        var iSheet = newArr.sheets[i];
         var groupName = iSheet.title;
-      	dropdown[dropdown.length] = new Option(groupName, i);
-        	}
-    	}
+        dropdown[dropdown.length] = new Option(groupName, i);
+            }
+        }
     
  
         
@@ -273,7 +240,7 @@ h3 {
         
         
         
-      	document.getElementById("Scramble1").innerHTML = scram1;
+        document.getElementById("Scramble1").innerHTML = scram1;
         document.getElementById("Scramble2").innerHTML = scram2;
         document.getElementById("Scramble3").innerHTML = scram3;
         document.getElementById("Scramble4").innerHTML = scram4; 
@@ -313,10 +280,102 @@ h3 {
 
     
     }
-      
 
-  
-  
+
+
+
+
+
+
+
+
 </script>
+</head>
+<body>
+
+</br>
+
+<input type='file' id='fileinput'>
+<input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
+
+
+
+</br>
+</br>
+</br>
+<h3> 
+<select name="Events/Groups" id="chooseEvent" onchange="loadSheet();">
+<option>Load competition .json file to start!</option>
+</select> 
+</h3>
+</br>
+</br>
+
+
+
+<table id="customers">
+  
+  <tr>
+    <td width="5%" align="center">1.</td>
+    <td id="Scramble1"></td>
+    <td id="image1" width="20%">
+    <div id="scramble_image1"></div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td align="center">2.</td>
+    <td id="Scramble2"></td>
+    <td><div id="scramble_image2"></div></td>
+  </tr>
+  
+  <tr>
+    <td align="center">3.</td>
+    <td id="Scramble3"></td>
+    <td><div id="scramble_image3"></div></td>
+  </tr>
+  
+  <tr>
+    <td align="center">4.</td>
+    <td id="Scramble4"></td>
+    <td><div id="scramble_image4"></div></td>
+  </tr>
+  
+  <tr>
+    <td align="center">5.</td>
+    <td id="Scramble5"></td>
+    <td><div id="scramble_image5"></div></td>
+  </tr>
+  
+  
+  
+
+    
+  <tr>
+        <td align="left" colspan="3">Extra Scrambles:</td>
+  </tr>
+    
+ 
+  
+  <tr>
+    <td align="center">E1.</td>
+    <td id="ScrambleE1"></td>
+    <td><div id="scramble_imageE1"></div></td>
+  </tr>
+  
+  <tr>
+    <td align="center">E2.</td>
+    <td id="ScrambleE2"></td>
+    <td><div id="scramble_imageE2"></div></td>
+  </tr>
+
+</table>
+
+
+
+<div class="footer">
+<img src="https://i.imgur.com/YHONVBb.png" alt="Chris Tran made dis" style="width:300px;height:75px;" align="right">
+</div>
+
 </body>
 </html>
