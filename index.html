@@ -184,7 +184,7 @@ h3 {
       
       var sheet = newArr.sheets[0];
       sheetCount = newArr.sheets.length;
-      var puzzle = sheet.scrambler;
+      var puzzle = puzzles[sheet.scrambler];
       
       var scram1 = sheet.scrambles[0];
       var scram2 = sheet.scrambles[1];
@@ -209,7 +209,7 @@ h3 {
       var maxWidth = 0;
       var maxHeight = 0;
       
-      var svgText1 = tnoodlejs.scrambleToSvg(scram1, "333", maxWidth, maxHeight);
+      var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
       var scramble_image1 = document.getElementById("scramble_image1");
       scramble_image1.innerHTML = svgText1;  
       var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
@@ -254,7 +254,7 @@ h3 {
         var sheetToLoad = document.getElementById("chooseEvent").value;
         currentSheet = sheetToLoad;
         var sheet = newArr.sheets[currentSheet];
-        var puzzle = sheet.scrambler;
+        var puzzle = puzzles[sheet.scrambler];
         
         var scram1 = sheet.scrambles[0];
         var scram2 = sheet.scrambles[1];
