@@ -141,13 +141,19 @@ h3 {
 </div>
 
 
-
+<script>
+    window.TNOODLE_ENV = { "TNOODLE_333_MIN_DISTANCE": "1" };
+</script>
 <script src="tnoodle.js"></script>
 <script>
   var newArr;
   var sheetCount;
   var currentSheet = 0;
   
+  function puzzlesLoaded(puzzles) {
+        window.puzzles = puzzles;
+
+    }
   
 
   function loadFile() {
