@@ -1,16 +1,122 @@
 <html>
 <head>
 <title>Simple Viewer provided by TheCubicle.US</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style type="text/css">
     div#scramble_icons > * {
         cursor: pointer;
         margin: 10px;
     }
+
+#doubled {
+  transform:scale(4.0);
+  -webkit-transform:scale(4.0)
+}
+
+#bigger {
+  transform:scale(1.3);
+  -webkit-transform:scale(1.3)
+  padding: 5px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 50px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    padding: 400px;
+
+}
+
+/* Caption of Modal Image */
+#caption {
+    font-family: "verdana", sans-serif;
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #FFFFFF;
+    height: 150px;
+    font-size: 40px;
+    padding-top: 20px;
+}
+
+/* Add Animation */
+.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
+
+.uButton {
+  font-family: "verdana", sans-serif;
+  border: none;
+  padding: 10;
+  background: none;
+  font-size: 50px;
+}
+
+.uButton:hover {background-color: #00FF00;}
+
+
 select {
     border: 0px;
     outline: 0px;
-    font-size: 30px;
+    font-size: 40px;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 
     }
@@ -46,12 +152,15 @@ h3 {
 }
 
 #customers td {
+    
     border: 3px solid #000000;
     padding: 20px;
     font-size: 50px;
-    word-spacing: 40px;
+    word-spacing: 55px;
     
 }
+
+
 
 #customers th {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -185,48 +294,128 @@ var newArr;
         
       var scramE1 = sheet.extraScrambles[0];
       var scramE2 = sheet.extraScrambles[1];
+
+
+
+	  var scramv1 = scram1.split(" ");
+      var scramv2 = scram2.split(" ");
+      var scramv3 = scram3.split(" ");
+      var scramv4 = scram4.split(" ");
+      var scramv5 = scram5.split(" ");
         
+      var scramvE1 = scramE1.split(" ");
+      var scramvE2 = scramE2.split(" ");
+
+
+      var scrambleLine1='';
+      var scrambleLine2='';
+      var scrambleLine3='';
+      var scrambleLine4='';
+      var scrambleLine5='';
+
+      var scrambleLineE1='';
+      var scrambleLineE2='';
+
+
+
+      var tempSeq;
+
+      tempSeq = '';
+      for (i=0; i<scramv1.length; i++){
+      	tempSeq += scramv1[i];
+      	tempSeq += " ";
+      	var temp1 = new letter(tempSeq, scramv1[i]);
+      	scrambleLine1 += temp1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv2.length; i++){
+      	tempSeq += scramv2[i];
+      	tempSeq += " ";
+      	var temp2 = new letter(tempSeq, scramv2[i]);
+      	scrambleLine2 += temp2.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv3.length; i++){
+      	tempSeq += scramv3[i];
+      	tempSeq += " ";
+      	var temp3 = new letter(tempSeq, scramv3[i]);
+      	scrambleLine3 += temp3.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv4.length; i++){
+      	tempSeq += scramv4[i];
+      	tempSeq += " ";
+      	var temp4 = new letter(tempSeq, scramv4[i]);
+      	scrambleLine4 += temp4.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv5.length; i++){
+      	tempSeq += scramv5[i];
+      	tempSeq += " ";
+      	var temp5 = new letter(tempSeq, scramv5[i]);
+      	scrambleLine5 += temp5.textOut;
+      }
+      tempSeq = '';
+
+      for (i=0; i<scramvE1.length; i++){
+      	tempSeq += scramvE1[i];
+      	tempSeq += " ";
+      	var tempE1 = new letter(tempSeq, scramvE1[i]);
+      	scrambleLineE1 += tempE1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramvE2.length; i++){
+      	tempSeq += scramvE2[i];
+      	tempSeq += " ";
+      	var tempE2 = new letter(tempSeq, scramvE2[i]);
+      	scrambleLineE2 += tempE2.textOut;
+      }
+      tempSeq = '';
         
-        
-      document.getElementById("Scramble1").innerHTML = scram1;
-      document.getElementById("Scramble2").innerHTML = scram2;
-      document.getElementById("Scramble3").innerHTML = scram3;
-      document.getElementById("Scramble4").innerHTML = scram4; 
-      document.getElementById("Scramble5").innerHTML = scram5;
+      document.getElementById("Scramble1").innerHTML = scrambleLine1;
+      document.getElementById("Scramble2").innerHTML = scrambleLine2;
+      document.getElementById("Scramble3").innerHTML = scrambleLine3;
+      document.getElementById("Scramble4").innerHTML = scrambleLine4; 
+      document.getElementById("Scramble5").innerHTML = scrambleLine5;
       
-      document.getElementById("ScrambleE1").innerHTML = scramE1;
-      document.getElementById("ScrambleE2").innerHTML = scramE2;
+      document.getElementById("ScrambleE1").innerHTML = scrambleLineE1;
+      document.getElementById("ScrambleE2").innerHTML = scrambleLineE2;
         
       var maxWidth = 0;
       var maxHeight = 0;
       
       var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
       var scramble_image1 = document.getElementById("scramble_image1");
-      scramble_image1.innerHTML = svgText1;  
+      var svgText1f = '<svg id="bigger" '+ svgText1.slice(4);
+      scramble_image1.innerHTML = svgText1f; 
       var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
       var scramble_image2 = document.getElementById("scramble_image2");
-      scramble_image2.innerHTML = svgText2;       
+      var svgText2f = '<svg id="bigger" '+ svgText2.slice(4);
+      scramble_image2.innerHTML = svgText2f;       
       var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
       var scramble_image3 = document.getElementById("scramble_image3");
-      scramble_image3.innerHTML = svgText3;
+      var svgText3f = '<svg id="bigger" '+ svgText3.slice(4);
+      scramble_image3.innerHTML = svgText3f;
       var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
       var scramble_image4 = document.getElementById("scramble_image4");
-      scramble_image4.innerHTML = svgText4;
+      var svgText4f = '<svg id="bigger" '+ svgText4.slice(4);
+      scramble_image4.innerHTML = svgText4f;
       var svgText5 = tnoodlejs.scrambleToSvg(scram5, puzzle, maxWidth, maxHeight);
       var scramble_image5 = document.getElementById("scramble_image5");
-      scramble_image5.innerHTML = svgText5;
+      var svgText5f = '<svg id="bigger" '+ svgText5.slice(4);
+      scramble_image5.innerHTML = svgText5f;
       
         
       var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
       var scramble_imageE1 = document.getElementById("scramble_imageE1");
-      scramble_imageE1.innerHTML = svgTextE1;
+      var svgTextE1f = '<svg id="bigger" '+ svgTextE1.slice(4);
+      scramble_imageE1.innerHTML = svgTextE1f;
         
       var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
       var scramble_imageE2 = document.getElementById("scramble_imageE2");
-      scramble_imageE2.innerHTML = svgTextE2;
-      
-      
-      
+      var svgTextE2f = '<svg id="bigger" '+ svgTextE2.slice(4);
+      scramble_imageE2.innerHTML = svgTextE2f;
+            
       
       var dropdown = document.getElementById("chooseEvent");
       dropdown.options[0] = null;
@@ -235,90 +424,277 @@ var newArr;
         var iSheet = newArr.sheets[i];
         var groupName = iSheet.title;
         dropdown[dropdown.length] = new Option(groupName, i);
-            }
         }
+    }
     
  
         
     
     function loadSheet(){
-        var sheetToLoad = document.getElementById("chooseEvent").value;
-        currentSheet = sheetToLoad;
-        var sheet = newArr.sheets[currentSheet];
-        var puzzle = puzzles[sheet.scrambler];
+      var sheetToLoad = document.getElementById("chooseEvent").value;
+      currentSheet = sheetToLoad;
+      var sheet = newArr.sheets[currentSheet];
+      var puzzle = puzzles[sheet.scrambler];
+      var totalScrambles = sheet.scrambles.length;
+
+      if(totalScrambles == 5){
+
+      document.getElementById('clear1').style.visibility="visible";
+      document.getElementById('clear2').style.visibility="visible";
+      var scram1 = sheet.scrambles[0];
+      var scram2 = sheet.scrambles[1];
+      var scram3 = sheet.scrambles[2];
+      var scram4 = sheet.scrambles[3];
+      var scram5 = sheet.scrambles[4];
         
-        var scram1 = sheet.scrambles[0];
-        var scram2 = sheet.scrambles[1];
-        var scram3 = sheet.scrambles[2];
-        var scram4 = sheet.scrambles[3];
-        var scram5 = sheet.scrambles[4];
+      var scramE1 = sheet.extraScrambles[0];
+      var scramE2 = sheet.extraScrambles[1];
+
+	  var scramv1 = scram1.split(" ");
+      var scramv2 = scram2.split(" ");
+      var scramv3 = scram3.split(" ");
+      var scramv4 = scram4.split(" ");
+      var scramv5 = scram5.split(" ");
         
-        var scramE1 = sheet.extraScrambles[0];
-        var scramE2 = sheet.extraScrambles[1];
+      var scramvE1 = scramE1.split(" ");
+      var scramvE2 = scramE2.split(" ");
+
+
+      var scrambleLine1='';
+      var scrambleLine2='';
+      var scrambleLine3='';
+      var scrambleLine4='';
+      var scrambleLine5='';
+
+      var scrambleLineE1='';
+      var scrambleLineE2='';
+      var tempSeq;
+
+      tempSeq = '';
+      for (i=0; i<scramv1.length; i++){
+      	tempSeq += scramv1[i];
+      	tempSeq += " ";
+      	var temp1 = new letter(tempSeq, scramv1[i]);
+      	scrambleLine1 += temp1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv2.length; i++){
+      	tempSeq += scramv2[i];
+      	tempSeq += " ";
+      	var temp2 = new letter(tempSeq, scramv2[i]);
+      	scrambleLine2 += temp2.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv3.length; i++){
+      	tempSeq += scramv3[i];
+      	tempSeq += " ";
+      	var temp3 = new letter(tempSeq, scramv3[i]);
+      	scrambleLine3 += temp3.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv4.length; i++){
+      	tempSeq += scramv4[i];
+      	tempSeq += " ";
+      	var temp4 = new letter(tempSeq, scramv4[i]);
+      	scrambleLine4 += temp4.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv5.length; i++){
+      	tempSeq += scramv5[i];
+      	tempSeq += " ";
+      	var temp5 = new letter(tempSeq, scramv5[i]);
+      	scrambleLine5 += temp5.textOut;
+      }
+      tempSeq = '';
+
+      for (i=0; i<scramvE1.length; i++){
+      	tempSeq += scramvE1[i];
+      	tempSeq += " ";
+      	var tempE1 = new letter(tempSeq, scramvE1[i]);
+      	scrambleLineE1 += tempE1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramvE2.length; i++){
+      	tempSeq += scramvE2[i];
+      	tempSeq += " ";
+      	var tempE2 = new letter(tempSeq, scramvE2[i]);
+      	scrambleLineE2 += tempE2.textOut;
+      }
+      tempSeq = '';
+    
         
-        
-        
-        document.getElementById("Scramble1").innerHTML = scram1;
-        document.getElementById("Scramble2").innerHTML = scram2;
-        document.getElementById("Scramble3").innerHTML = scram3;
-        document.getElementById("Scramble4").innerHTML = scram4; 
-        document.getElementById("Scramble5").innerHTML = scram5;
+      document.getElementById("Scramble1").innerHTML = scrambleLine1;
+      document.getElementById("Scramble2").innerHTML = scrambleLine2;
+      document.getElementById("Scramble3").innerHTML = scrambleLine3;
+      document.getElementById("Scramble4").innerHTML = scrambleLine4; 
+      document.getElementById("Scramble5").innerHTML = scrambleLine5;
       
-        document.getElementById("ScrambleE1").innerHTML = scramE1;
-        document.getElementById("ScrambleE2").innerHTML = scramE2;
+      document.getElementById("ScrambleE1").innerHTML = scrambleLineE1;
+      document.getElementById("ScrambleE2").innerHTML = scrambleLineE2;
         
-        var maxWidth = 0;
-        var maxHeight = 0;
-        
-        
-        var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
-        var scramble_image1 = document.getElementById("scramble_image1");
-        scramble_image1.innerHTML = svgText1;
-        var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
-        var scramble_image2 = document.getElementById("scramble_image2");
-        scramble_image2.innerHTML = svgText2;       
-        var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
-        var scramble_image3 = document.getElementById("scramble_image3");
-        scramble_image3.innerHTML = svgText3;      
-        var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
-        var scramble_image4 = document.getElementById("scramble_image4");
-        scramble_image4.innerHTML = svgText4;       
-        var svgText5 = tnoodlejs.scrambleToSvg(scram5, puzzle, maxWidth, maxHeight);
-        var scramble_image5 = document.getElementById("scramble_image5");
-        scramble_image5.innerHTML = svgText5;
+      var maxWidth = 0;
+      var maxHeight = 0;
         
         
-        var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
-        var scramble_imageE1 = document.getElementById("scramble_imageE1");
-        scramble_imageE1.innerHTML = svgTextE1;        
-        var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
-        var scramble_imageE2 = document.getElementById("scramble_imageE2");
-        scramble_imageE2.innerHTML = svgTextE2;
+      var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_image1 = document.getElementById("scramble_image1");
+      var svgText1f = '<svg id="bigger" '+ svgText1.slice(4);
+      scramble_image1.innerHTML = svgText1f; 
+      var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
+      var scramble_image2 = document.getElementById("scramble_image2");
+      var svgText2f = '<svg id="bigger" '+ svgText2.slice(4);
+      scramble_image2.innerHTML = svgText2f;       
+      var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
+      var scramble_image3 = document.getElementById("scramble_image3");
+      var svgText3f = '<svg id="bigger" '+ svgText3.slice(4);
+      scramble_image3.innerHTML = svgText3f;
+      var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
+      var scramble_image4 = document.getElementById("scramble_image4");
+      var svgText4f = '<svg id="bigger" '+ svgText4.slice(4);
+      scramble_image4.innerHTML = svgText4f;
+      var svgText5 = tnoodlejs.scrambleToSvg(scram5, puzzle, maxWidth, maxHeight);
+      var scramble_image5 = document.getElementById("scramble_image5");
+      var svgText5f = '<svg id="bigger" '+ svgText5.slice(4);
+      scramble_image5.innerHTML = svgText5f;
+      
         
+      var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE1 = document.getElementById("scramble_imageE1");
+      var svgTextE1f = '<svg id="bigger" '+ svgTextE1.slice(4);
+      scramble_imageE1.innerHTML = svgTextE1f;
+        
+      var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE2 = document.getElementById("scramble_imageE2");
+      var svgTextE2f = '<svg id="bigger" '+ svgTextE2.slice(4);
+      scramble_imageE2.innerHTML = svgTextE2f;
+      }
+
+     else{
+      document.getElementById('clear1').style.visibility='collapse';
+      document.getElementById('clear2').style.visibility='collapse';
+
+
+      var scram1 = sheet.scrambles[0];
+      var scram2 = sheet.scrambles[1];
+      var scram3 = sheet.scrambles[2];
+              
+      var scramE1 = sheet.extraScrambles[0];
+      var scramE2 = sheet.extraScrambles[1];
+
+	  var scramv1 = scram1.split(" ");
+      var scramv2 = scram2.split(" ");
+      var scramv3 = scram3.split(" ");
+              
+      var scramvE1 = scramE1.split(" ");
+      var scramvE2 = scramE2.split(" ");
+
+
+      var scrambleLine1='';
+      var scrambleLine2='';
+      var scrambleLine3='';
+      
+      var scrambleLineE1='';
+      var scrambleLineE2='';
+      var tempSeq;
+
+      tempSeq = '';
+      for (i=0; i<scramv1.length; i++){
+      	tempSeq += scramv1[i];
+      	tempSeq += " ";
+      	var temp1 = new letter(tempSeq, scramv1[i]);
+      	scrambleLine1 += temp1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv2.length; i++){
+      	tempSeq += scramv2[i];
+      	tempSeq += " ";
+      	var temp2 = new letter(tempSeq, scramv2[i]);
+      	scrambleLine2 += temp2.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv3.length; i++){
+      	tempSeq += scramv3[i];
+      	tempSeq += " ";
+      	var temp3 = new letter(tempSeq, scramv3[i]);
+      	scrambleLine3 += temp3.textOut;
+      }
+      tempSeq = '';
+      
+      for (i=0; i<scramvE1.length; i++){
+      	tempSeq += scramvE1[i];
+      	tempSeq += " ";
+      	var tempE1 = new letter(tempSeq, scramvE1[i]);
+      	scrambleLineE1 += tempE1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramvE2.length; i++){
+      	tempSeq += scramvE2[i];
+      	tempSeq += " ";
+      	var tempE2 = new letter(tempSeq, scramvE2[i]);
+      	scrambleLineE2 += tempE2.textOut;
+      }
+      tempSeq = '';
+    
+        
+      document.getElementById("Scramble1").innerHTML = scrambleLine1;
+      document.getElementById("Scramble2").innerHTML = scrambleLine2;
+      document.getElementById("Scramble3").innerHTML = scrambleLine3;
+      
+      document.getElementById("ScrambleE1").innerHTML = scrambleLineE1;
+      document.getElementById("ScrambleE2").innerHTML = scrambleLineE2;
+        
+      var maxWidth = 0;
+      var maxHeight = 0;
+        
+        
+      var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_image1 = document.getElementById("scramble_image1");
+      var svgText1f = '<svg id="bigger" '+ svgText1.slice(4);
+      scramble_image1.innerHTML = svgText1f; 
+      var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
+      var scramble_image2 = document.getElementById("scramble_image2");
+      var svgText2f = '<svg id="bigger" '+ svgText2.slice(4);
+      scramble_image2.innerHTML = svgText2f;       
+      var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
+      var scramble_image3 = document.getElementById("scramble_image3");
+      var svgText3f = '<svg id="bigger" '+ svgText3.slice(4);
+      scramble_image3.innerHTML = svgText3f;
+      
+        
+      var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE1 = document.getElementById("scramble_imageE1");
+      var svgTextE1f = '<svg id="bigger" '+ svgTextE1.slice(4);
+      scramble_imageE1.innerHTML = svgTextE1f;
+        
+      var svgTextE2 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE2 = document.getElementById("scramble_imageE2");
+      var svgTextE2f = '<svg id="bigger" '+ svgTextE2.slice(4);
+      scramble_imageE2.innerHTML = svgTextE2f;
+
+
+
+
+     }
 
     
     }
 
 
-function checkImage(){
-  partialSequence = document.getElementById("scrambleChecker").value;
-
-  var sheetToLoad = document.getElementById("chooseEvent").value;
-  currentSheet = sheetToLoad;
-  var sheet = newArr.sheets[currentSheet];
-  var puzzle = puzzles[sheet.scrambler];
-  var maxWidth = 0;
-  var maxHeight = 0;
-
-  var checkSVGText = tnoodlejs.scrambleToSvg(partialSequence, puzzle, maxWidth, maxHeight);
-  var sequenceImage = document.getElementById("checkSVG");
-  sequenceImage.innerHTML = checkSVGText;
-  
 
 
+
+
+function letter(partialSequence, displayedLetter){
+	var trimmedPartial = partialSequence.trim();
+	var firstPart = "<button class='uButton' onclick='display(";
+	var middlePart = ");'>";
+	var endPart = " </button>";
+	var convertedPartial = trimmedPartial.replace(/'/g, "j");
+	var displayedLetter2 = displayedLetter + "  &zwnj;";
+
+	this.textOut =firstPart+'"'+convertedPartial+'"'+middlePart+displayedLetter2+endPart;
 
 }
-
 
 
 
@@ -327,22 +703,16 @@ function checkImage(){
 </head>
 <body>
 
+<div id="myModal" class="modal">
+  <div align="center" class="modal-content" id="modalScramble"></div>
+  <div class="modal-caption" id="caption"></div>
+</div>
+
 </br>
 
 <input type='file' id='fileinput'>
 <input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
 </br>
-
-<p>
-Check Scramble Sequence: <input type="text" id="scrambleChecker" >
-<input type='button' id='checkButton' value='Load' onclick='checkImage();'>
-</p>
-</br>
-
-
-<div id="checkSVG"></div>
-
-
 </br>
 </br>
 </br>
@@ -361,33 +731,34 @@ Check Scramble Sequence: <input type="text" id="scrambleChecker" >
   <tr>
     <td width="5%" align="center">1.</td>
     <td id="Scramble1"></td>
-    <td id="image1" width="15%">
-    <div id="scramble_image1"></div>
+    <td id="image1" width="10%">
+    <div id="scramble_image1" align="center"></div>
     </td>
   </tr>
   
   <tr>
     <td align="center">2.</td>
     <td id="Scramble2"></td>
-    <td><div id="scramble_image2"></div></td>
+    <td><div id="scramble_image2" align="center"></div></td>
   </tr>
   
   <tr>
     <td align="center">3.</td>
     <td id="Scramble3"></td>
-    <td><div id="scramble_image3"></div></td>
+    <td><div id="scramble_image3" align="center"></div></td>
   </tr>
   
-  <tr>
+  <tr id="clear1">
     <td align="center">4.</td>
     <td id="Scramble4"></td>
-    <td><div id="scramble_image4"></div></td>
+    <td><div id="scramble_image4" align="center"></div></td>
   </tr>
   
-  <tr>
+  <tr id="clear2">
     <td align="center">5.</td>
-    <td id="Scramble5"></td>
-    <td><div id="scramble_image5"></div></td>
+    <td id="Scramble5">
+    </td>
+    <td><div id="scramble_image5" align="center"></div></td>
   </tr>
   
   
@@ -403,13 +774,13 @@ Check Scramble Sequence: <input type="text" id="scrambleChecker" >
   <tr>
     <td align="center">E1.</td>
     <td id="ScrambleE1"></td>
-    <td><div id="scramble_imageE1"></div></td>
+    <td><div id="scramble_imageE1" align="center"></div></td>
   </tr>
   
   <tr>
     <td align="center">E2.</td>
     <td id="ScrambleE2"></td>
-    <td><div id="scramble_imageE2"></div></td>
+    <td><div id="scramble_imageE2" align="center"></div></td>
   </tr>
 
 </table>
@@ -419,6 +790,41 @@ Check Scramble Sequence: <input type="text" id="scrambleChecker" >
 <div class="footer">
 <img src="https://i.imgur.com/YHONVBb.png" alt="Chris Tran made dis" style="width:300px;height:75px;" align="right">
 </div>
+
+<script type="text/javascript">
+function display(partialSequence) {
+  var reconvertedPartial = partialSequence.replace(/j/g, "'");
+  var doublyConvertedPartial = partialSequence.replace(/j/g, "\'");
+
+  var captionText = document.getElementById("caption");
+  var sheetToLoad = document.getElementById("chooseEvent").value;
+  currentSheet = sheetToLoad;
+  var sheet = newArr.sheets[currentSheet];
+  var puzzle = puzzles[sheet.scrambler];
+  var maxWidth = 0;
+  var maxHeight = 0;
+
+  var checkSVGText = tnoodlejs.scrambleToSvg(reconvertedPartial, puzzle, maxWidth, maxHeight);
+  var sequenceImage = document.getElementById("modalScramble");
+
+  console.log(checkSVGText);
+
+
+  
+  var adjustedSVG2 = '<svg id="doubled" '+ checkSVGText.slice(4);
+  sequenceImage.innerHTML =adjustedSVG2;
+  captionText.innerHTML = doublyConvertedPartial;
+  modal.style.display = "block";
+
+  
+}
+
+
+var modal = document.getElementById('myModal');
+modal.onclick = function(){
+	modal.style.display = "none";
+}
+</script>
 
 </body>
 </html>
