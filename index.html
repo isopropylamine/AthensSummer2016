@@ -357,6 +357,10 @@ function closeQuestion(){
       var puzzle = puzzles[sheet.scrambler];
 
       var scaleCheck = sheet.scrambler;
+
+      var totalScrambles = sheet.scrambles.length;
+
+      if(totalScrambles == 5){
      
       var scram1 = sheet.scrambles[0];
       var scram2 = sheet.scrambles[1];
@@ -370,6 +374,7 @@ function closeQuestion(){
       var scramv1y = scram1.replace(/\n/g, " ");
       var scramv2y = scram2.replace(/\n/g, " ");
       var scramv3y = scram3.replace(/\n/g, " ");
+      console.log(puzzle);
       var scramv4y = scram4.replace(/\n/g, " ");
       var scramv5y = scram5.replace(/\n/g, " ");
         
@@ -446,7 +451,6 @@ function closeQuestion(){
         var tempE2 = new letter(tempSeq, scramvE2[i]);
         scrambleLineE2 += tempE2.textOut;
       }
-      tempSeq = '';
         
       document.getElementById("Scramble1").innerHTML = scrambleLine1;
       document.getElementById("Scramble2").innerHTML = scrambleLine2;
@@ -490,6 +494,120 @@ function closeQuestion(){
       var scramble_imageE2 = document.getElementById("scramble_imageE2");
       var svgTextE2f = '<svg class="bigger" '+ svgTextE2.slice(4);
       scramble_imageE2.innerHTML = svgTextE2f;
+
+    }
+
+    else{
+
+      document.getElementById('clear1').style.visibility='collapse';
+      document.getElementById('clear2').style.visibility='collapse';
+
+      var scram1 = sheet.scrambles[0];
+      var scram2 = sheet.scrambles[1];
+      var scram3 = sheet.scrambles[2];
+        
+      var scramE1 = sheet.extraScrambles[0];
+      var scramE2 = sheet.extraScrambles[1];
+
+
+      var scramv1y = scram1.replace(/\n/g, " ");
+      var scramv2y = scram2.replace(/\n/g, " ");
+      var scramv3y = scram3.replace(/\n/g, " ");
+        
+      var scramvE1y = scramE1.replace(/\n/g, " ");
+      var scramvE2y = scramE2.replace(/\n/g, " ");
+
+      var scramv1 = scramv1y.split(" ");
+      var scramv2 = scramv2y.split(" ");
+      var scramv3 = scramv3y.split(" ");
+        
+      var scramvE1 = scramvE1y.split(" ");
+      var scramvE2 = scramvE2y.split(" ");
+
+      var scrambleLine1='';
+      var scrambleLine2='';
+      var scrambleLine3='';
+
+      var scrambleLineE1='';
+      var scrambleLineE2='';
+
+      var tempSeq;
+
+      tempSeq = '';
+      for (i=0; i<scramv1.length; i++){
+        tempSeq += scramv1[i];
+        tempSeq += " ";
+        var temp1 = new letter(tempSeq, scramv1[i]);
+        scrambleLine1 += temp1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv2.length; i++){
+        tempSeq += scramv2[i];
+        tempSeq += " ";
+        var temp2 = new letter(tempSeq, scramv2[i]);
+        scrambleLine2 += temp2.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramv3.length; i++){
+        tempSeq += scramv3[i];
+        tempSeq += " ";
+        var temp3 = new letter(tempSeq, scramv3[i]);
+        scrambleLine3 += temp3.textOut;
+      }
+
+      tempSeq = '';
+      for (i=0; i<scramvE1.length; i++){
+        tempSeq += scramvE1[i];
+        tempSeq += " ";
+        var tempE1 = new letter(tempSeq, scramvE1[i]);
+        scrambleLineE1 += tempE1.textOut;
+      }
+      tempSeq = '';
+      for (i=0; i<scramvE2.length; i++){
+        tempSeq += scramvE2[i];
+        tempSeq += " ";
+        var tempE2 = new letter(tempSeq, scramvE2[i]);
+        scrambleLineE2 += tempE2.textOut;
+      }
+        
+      document.getElementById("Scramble1").innerHTML = scrambleLine1;
+      document.getElementById("Scramble2").innerHTML = scrambleLine2;
+      document.getElementById("Scramble3").innerHTML = scrambleLine3;
+      
+      document.getElementById("ScrambleE1").innerHTML = scrambleLineE1;
+      document.getElementById("ScrambleE2").innerHTML = scrambleLineE2;
+        
+      var maxWidth = 0;
+      var maxHeight = 0;
+      
+      var svgText1 = tnoodlejs.scrambleToSvg(scram1, puzzle, maxWidth, maxHeight);
+      var scramble_image1 = document.getElementById("scramble_image1");
+      var svgText1f = '<svg class="bigger" '+ svgText1.slice(4);
+      scramble_image1.innerHTML = svgText1f; 
+      var svgText2 = tnoodlejs.scrambleToSvg(scram2, puzzle, maxWidth, maxHeight);
+      var scramble_image2 = document.getElementById("scramble_image2");
+      var svgText2f = '<svg class="bigger" '+ svgText2.slice(4);
+      scramble_image2.innerHTML = svgText2f;       
+      var svgText3 = tnoodlejs.scrambleToSvg(scram3, puzzle, maxWidth, maxHeight);
+      var scramble_image3 = document.getElementById("scramble_image3");
+      var svgText3f = '<svg class="bigger" '+ svgText3.slice(4);
+      scramble_image3.innerHTML = svgText3f;
+      var svgText4 = tnoodlejs.scrambleToSvg(scram4, puzzle, maxWidth, maxHeight);
+      var scramble_image4 = document.getElementById("scramble_image4");
+      var svgText4f = '<svg class="bigger" '+ svgText4.slice(4);
+
+      
+      var svgTextE1 = tnoodlejs.scrambleToSvg(scramE1, puzzle, maxWidth, maxHeight);
+      var scramble_imageE1 = document.getElementById("scramble_imageE1");
+      var svgTextE1f = '<svg class="bigger" '+ svgTextE1.slice(4);
+      scramble_imageE1.innerHTML = svgTextE1f;
+        
+      var svgTextE2 = tnoodlejs.scrambleToSvg(scramE2, puzzle, maxWidth, maxHeight);
+      var scramble_imageE2 = document.getElementById("scramble_imageE2");
+      var svgTextE2f = '<svg class="bigger" '+ svgTextE2.slice(4);
+      scramble_imageE2.innerHTML = svgTextE2f;
+
+    }
             
       var dropdown = document.getElementById("chooseEvent");
       dropdown.options[0] = null;
@@ -499,6 +617,8 @@ function closeQuestion(){
         var groupName = iSheet.title;
         dropdown[dropdown.length] = new Option(groupName, i);
         }
+
+
 
     }
         
